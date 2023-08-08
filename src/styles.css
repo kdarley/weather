@@ -1,0 +1,172 @@
+html, body{
+    height: 100%;
+    width: 100%;
+
+    font-size: 16px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    background-color: teal;
+    margin:0px;
+    padding: 0px;
+}
+
+div#content{
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 12fr;
+}
+
+div.sidebar-container{
+    height: 100%;
+    width: 100%;
+    padding-top: 0.5rem;
+    
+    grid-column: 1;
+    grid-row: 1;
+
+    background-color: rgb(220, 220, 220);
+    display: flex;
+    justify-content: space-between;
+}
+
+h2.form-title{
+    height: 100%;
+    align-self: center;
+    /* background-color: red; */
+    padding-right: 2rem;
+    padding-left: 2rem;
+}
+
+div.form-container {
+    /* background-color: aqua; */
+    padding-right: 6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: top;
+
+}
+
+form.weather-form{
+    display: flex;
+    align-items: start;
+}
+
+div.form-input {
+    padding-right: 2rem;
+    /* padding-bottom: 0px; */
+    display: flex;
+}
+
+label {
+    padding-right: 8px;
+}
+
+div.input-container{
+    display: flex;
+    flex-direction: column;
+}
+
+div.slider-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.error {
+    width: 100%;
+    padding: 0;
+    padding-left: 6px;
+  
+    font-size: 0.8rem;
+    color: white;
+    background-color: #900;
+    border-radius: 0 0 5px 5px;
+
+    height: 1.5rem;
+    box-sizing: border-box;
+    visibility: hidden;
+  }
+
+.error.active {
+    padding: 0.3em;
+    visibility: visible;
+  }
+
+div.form-directions {
+    font-size: 0.9rem;
+}
+
+div.display-container{
+    height: 100%;
+    grid-column: 1;
+    grid-row: 2;
+    background-color: rgb(250, 250, 250);
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2fr 1fr;
+}
+
+div.current-weather-container {
+    /* background-color: aqua; */
+    height: 100%;
+    grid-column: 1;
+    grid-row: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: aqua; */
+}
+
+div.main-weather{
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+}
+
+div.current-temperature {
+    font-size: 12rem;
+    /* padding-left: 12rem; */
+    padding-right: 0px;
+    margin-right: 0px;
+}
+
+div.current-condition {
+    font-size: 3rem;
+}
+
+div.current-high-low{
+    display: flex;
+
+}
+
+div.current-high, div.current-low {
+    font-size: 2rem;
+    padding: 2rem;
+    padding-top: 1rem;
+}
+
+
+div.forecast-container{
+    background-color: red;
+    height: 100%;
+    grid-column:1;
+    grid-row:2;
+
+    display: flex;
+    align-items: top;
+    justify-content: center;
+}
+
+div.forecast {
+    background-color: gray;
+    flex: 0 1 20rem ;
+    margin: 20px;
+}
+

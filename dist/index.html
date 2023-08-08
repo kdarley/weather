@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="main.js" defer></script>
+    <title>Weather</title>
+</head>
+<body>
+    <div id="content">
+        <div class="sidebar-container">
+            <h2 class="form-title">Find Weather Forecasts Anywhere</h2>
+            <div class="form-container">
+                <form class="weather-form" action="" method="post" novalidate>
+                    <div class="form-input">
+                        <label for ="location" required>Location</label>
+                        <div class="input-container">
+                            <input type="text" id="location" name="location">
+                            <span class="invalid-location error" aria-live="polite"></span>
+                        </div>
+                    </div>
+                    <div class="form-input">
+                        <label for = "num-days">Days of Forecast</label>
+                        <div class="slider-container">
+                            <input id ="slider" type ="range" min="1" max="10" value="4">
+                            <output id="output"></output>
+                        </div>
+                    </div>
+                    <div class="form-input">
+                        <button class="form-submit">Search</button>
+                    </div>
+                </form>
+                <div class="form-directions">Pass US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude (decimal degree) or city name.</div>
+            </div>
+        </div>
+        <div class="display-container">
+            <div class="current-weather-container">
+                <h1 class="location"></h1>
+                <div class="main-weather">
+                    <div class="current-temperature">72</div>
+                    <div class="current-condition">Cloudy</div>
+                    <div class="current-high-low">
+                        <div class="current-high">high</div>
+                        <div class="current-low">low</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="forecast-container">
+                <div class="forecast">
+                    <div class="daily-average">80</div>
+                    <div class="forecast-high-low">
+                        <div class="forecast-high">high</div>
+                        <div class="forecast-low">low</div>
+                    </div>
+                    <div class="date">Sunday</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
