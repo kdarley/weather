@@ -121,6 +121,8 @@ div.current-weather-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: top;
+    padding-bottom: 1rem;
     /* background-color: aqua; */
 }
 
@@ -131,10 +133,14 @@ div.main-weather{
 }
 
 div.current-temperature {
-    font-size: 12rem;
+    font-size: 8rem;
     /* padding-left: 12rem; */
     padding-right: 0px;
     margin-right: 0px;
+}
+
+img.current-weather-icon {
+    width: 10rem;
 }
 
 div.current-condition {
@@ -148,13 +154,14 @@ div.current-high-low{
 
 div.current-high, div.current-low {
     font-size: 2rem;
-    padding: 2rem;
+    padding-right: 1rem; 
+    padding-left: 1rem;
     padding-top: 1rem;
 }
 
 
 div.forecast-container{
-    background-color: red;
+    /* background-color: red; */
     height: 100%;
     grid-column:1;
     grid-row:2;
@@ -165,8 +172,44 @@ div.forecast-container{
 }
 
 div.forecast {
-    background-color: gray;
+    /* background-color: gray; */
     flex: 0 1 20rem ;
-    margin: 20px;
+    margin-right: 1rem;
+    margin-left: 1rem;
+    
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 }
 
+div.day {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+div.daily-average{
+    font-size: 1.5rem;
+}
+
+img.forecast-icon {
+    width: 6rem;
+}
+
+div.condition {
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+div.forecast-high-low{
+    padding-top: 1rem;
+    display:flex;
+
+}
+
+div.high, div.low{
+    font-size: 1.2rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+}

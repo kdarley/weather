@@ -117,7 +117,6 @@ function displayCurrentTemperatureDetails(locationObject1, locationObject2){
     tempContainer.textContent = temp+String.fromCharCode("0176")
 
     const weatherIcon = document.querySelector('img.current-weather-icon')
-    console.log("avavava", getImage(isDay, iconCode))
     weatherIcon.src = getImage(isDay, iconCode)
 
     const conditionContainer = document.querySelector("div.current-condition")
@@ -163,12 +162,14 @@ function createForecastContainer(i, locationObject){
     const forecast = document.createElement("div")
     forecast.classList.add("forecast")
     forecast.classList.add(i)
-    console.log(locationObject.date)
+
+    const forecastDay = document.createElement("div")
+    forecastDay.classList.add("day")
 
     if (i == 0){
-        forecast.textContent = "Today"
+        forecastDay.textContent = "Today"
     } else {
-        forecast.textContent = getDayOfWeek(locationObject.date)
+        forecastDay.textContent = getDayOfWeek(locationObject.date)
     }
     
 
@@ -183,6 +184,7 @@ function createForecastContainer(i, locationObject){
 
     const conditionCode = getIconCode(locationObject.averageConditionCode)
     const icon = document.createElement("img")
+    icon.classList.add("forecast-icon")
     icon.src = getImage(null, conditionCode)
 
     const forecastHighLow = document.createElement("div")
@@ -203,6 +205,7 @@ function createForecastContainer(i, locationObject){
     forecastHighLow.appendChild(high)
     forecastHighLow.appendChild(low)
 
+    forecast.appendChild(forecastDay)
     forecast.appendChild(dailyAverage)
     forecast.appendChild(icon)
     forecast.appendChild(dailyCondition)
@@ -220,7 +223,7 @@ const displayWeather = (async (location, days) => {
     displayLocation(locationObject);
 
     const currentWeatherObject = parseCurrentWeather(weatherData)
-    console.log(weatherData)
+    // console.log(weatherData)
     const todayForecastObject = parseDailyAverage(weatherData, 0)
     displayCurrentTemperatureDetails(currentWeatherObject, todayForecastObject)
 
