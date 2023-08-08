@@ -1,4 +1,6 @@
 import './styles.css';
+// import "./images"
+// images
 
 async function fetchWeather(location, days){
     try {
@@ -44,7 +46,10 @@ function parseLocation(weatherData){
 function parseCurrentWeather(weatherData){
     const farenheit = weatherData.current.temp_f
     const condition = weatherData.current.condition.text
-    return {farenheit, condition}
+    const conditionCode = weatherData.current.condition.code
+    const isDay = weatherData.current.is_day
+
+    return {farenheit, condition, conditionCode, isDay}
 }
 
 function parseDailyAverage(weatherData, dayIndex){
@@ -53,33 +58,13 @@ function parseDailyAverage(weatherData, dayIndex){
 
     const averageFarenheit = averages.avgtemp_f
     const averageCondition = averages.condition.text
+    const averageConditionCode = averages.condition.code
     const averageChanceRain = averages.daily_chance_of_rain
     const averageChanceSnow = averages.daily_chance_of_snow
     const highOf = averages.maxtemp_f
     const lowOf = averages.mintemp_f
-    return {date, averageFarenheit, averageCondition, averageChanceRain, averageChanceSnow, highOf, lowOf}
+    return {date, averageFarenheit, averageCondition, averageConditionCode, averageChanceRain, averageChanceSnow, highOf, lowOf}
 }
-
-function parseDate(forecast, day){
-    return forecast[day].date
-}
-
-function parseForecasts(weatherData){
-    forecasts = weatherData.forecast.forecastday
-    for (day in forecast){
-        console.log(forecast[day])
-    }
-}
-
-function createFooter(){
-    const footer = document.createElement("div")
-    footer.classList.add("footer")
-    footer.textContent = "Weather Application!"
-
-    return footer
-};
- 
-
 
 const submitButton = document.querySelector("button.form-submit")
 submitButton.addEventListener("click", submitClick, false)
@@ -110,15 +95,36 @@ function displayLocation(locationObject){
     locationTitle.textContent = `Weather in ${name}, ${region} - ${country}`
 }
 
+function getImage(isDay, iconCode){
+
+    let relativePath
+    if (isDay == 0){
+        relativePath = `./images/night/${iconCode}.png`
+    } else {
+        relativePath = `./images/day/${iconCode}.png`
+    }
+    return relativePath
+}
+
 function displayCurrentTemperatureDetails(locationObject1, locationObject2){
     const temp = locationObject1["farenheit"]
     const condition = locationObject1["condition"]
+    const conditionCode = locationObject1["conditionCode"]
+    const isDay = locationObject1["isDay"]
+    const iconCode = getIconCode(conditionCode)
     
     const tempContainer = document.querySelector('div.current-temperature')
     tempContainer.textContent = temp+String.fromCharCode("0176")
 
+    const weatherIcon = document.querySelector('img.current-weather-icon')
+    console.log("avavava", getImage(isDay, iconCode))
+    weatherIcon.src = getImage(isDay, iconCode)
+
     const conditionContainer = document.querySelector("div.current-condition")
     conditionContainer.textContent = condition
+
+
+
 
     const currentHigh = locationObject2.highOf
     const currentHighContainer = document.querySelector("div.current-high")
@@ -138,12 +144,20 @@ function removeForecasts(){
 
 // Accepts a Date object or date string that is recognized by the Date.parse() method
 function getDayOfWeek(dateObject) {
-    console.log(dateObject)
+    // console.log(dateObject)
     const date = new Date(dateObject)
 
     return isNaN(date.getUTCDay()) ? null : 
       ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][date.getUTCDay()];
   }
+
+function getIconCode(code){
+    // console.log(code)
+    const codeToIconDict = {'1000':'113','1003':'116','1006':'119','1009':'122','1030':'143','1063':'176','1066':'179','1069':'182','1072':'185','1087':'200','1114':'227','1117':'230','1135':'248','1147':'260','1150':'263','1153':'266','1168':'281','1171':'284','1180':'293','1183':'296','1186':'299','1189':'302','1192':'305','1195':'308','1198':'311','1201':'314','1204':'317','1207':'320','1210':'323','1213':'326','1216':'329','1219':'332','1222':'335','1225':'338','1237':'350','1240':'353','1243':'356','1246':'359','1249':'362','1252':'365','1255':'368','1258':'371','1261':'374','1264':'377','1273':'386','1276':'389','1279':'392','1282':'395'}
+    const icon = codeToIconDict[code]
+    // console.log(icon)
+    return icon
+}
 
 function createForecastContainer(i, locationObject){
     const forecast = document.createElement("div")
@@ -151,13 +165,25 @@ function createForecastContainer(i, locationObject){
     forecast.classList.add(i)
     console.log(locationObject.date)
 
-    forecast.textContent = getDayOfWeek(locationObject.date)
-
+    if (i == 0){
+        forecast.textContent = "Today"
+    } else {
+        forecast.textContent = getDayOfWeek(locationObject.date)
+    }
+    
 
     const dailyAverage = document.createElement("div")
     dailyAverage.classList.add("daily-average")
     dailyAverage.classList.add(i)
     dailyAverage.textContent= locationObject.averageFarenheit+String.fromCharCode("0176")
+
+    const dailyCondition = document.createElement("div")
+    dailyCondition.classList.add("condition")
+    dailyCondition.textContent = locationObject.averageCondition
+
+    const conditionCode = getIconCode(locationObject.averageConditionCode)
+    const icon = document.createElement("img")
+    icon.src = getImage(null, conditionCode)
 
     const forecastHighLow = document.createElement("div")
     forecastHighLow.classList.add("forecast-high-low")
@@ -178,6 +204,8 @@ function createForecastContainer(i, locationObject){
     forecastHighLow.appendChild(low)
 
     forecast.appendChild(dailyAverage)
+    forecast.appendChild(icon)
+    forecast.appendChild(dailyCondition)
     forecast.appendChild(forecastHighLow)
 
     const forecastContainer = document.querySelector("div.forecast-container")
